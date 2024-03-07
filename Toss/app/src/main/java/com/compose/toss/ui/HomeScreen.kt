@@ -3,6 +3,7 @@ package com.compose.toss.ui
 import android.os.Build
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
+import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -63,6 +64,8 @@ fun HomeScreen() {
             AssetContainer(modifier = Modifier)
             Spacer(Modifier.height(dimensionResource(R.dimen.padding_default)))
             CurrentMonthSpendContainer(modifier = Modifier)
+            Spacer(Modifier.height(dimensionResource(R.dimen.padding_default)))
+            SelectorContainer(modifier = Modifier)
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_bottom)))
         }
     }
@@ -193,7 +196,7 @@ private fun AssetContainer(
             }
             Divider(
                 color = MaterialTheme.colorScheme.secondaryContainer,
-                thickness = 1.dp,
+                thickness = dimensionResource(R.dimen.divider_width),
                 modifier = modifier
                     .fillMaxWidth()
                     .padding(horizontal = dimensionResource(R.dimen.padding_small))
@@ -228,7 +231,6 @@ private fun AssetContainer(
     }
 }
 
-
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun CurrentMonthSpendContainer(modifier: Modifier = Modifier) {
@@ -242,6 +244,54 @@ private fun CurrentMonthSpendContainer(modifier: Modifier = Modifier) {
             AssetItem(asset = Assets(BankType.Card, stringResource(R.string.month_spend, LocalDate.now().monthValue), 246708, true)) // 현재 달
         }
     }
+}
+
+@Composable
+fun SelectorContainer(modifier: Modifier = Modifier) {
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer
+        ),
+        modifier = modifier
+            .fillMaxWidth()
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(
+                    vertical = dimensionResource(R.dimen.padding_medium),
+                )
+        ) {
+            SelectorText(R.string.selector_home_account)
+            SelectorSeparator(modifier)
+            SelectorText(R.string.selector_home_card)
+            SelectorSeparator(modifier)
+            SelectorText(R.string.selector_home_loan)
+        }
+    }
+}
+
+@Composable
+fun SelectorText(@StringRes text: Int) {
+    Text(
+        text = stringResource(text),
+        fontSize = 15.sp,
+        fontWeight = FontWeight.ExtraBold,
+        color = MaterialTheme.colorScheme.onSurfaceVariant
+    )
+}
+
+@Composable
+fun SelectorSeparator(modifier: Modifier = Modifier) {
+    // 세로 방향의 구분선
+    Box(
+        modifier
+            .height(24.dp)
+            .width(dimensionResource(R.dimen.divider_width))
+            .background(color = MaterialTheme.colorScheme.secondaryContainer)
+    )
 }
 
 @Composable
