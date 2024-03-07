@@ -174,7 +174,9 @@ private fun TossBankContainer(
 }
 
 @Composable
-private fun AssetContainer(
+private fun DefaultContainerWithBottomText(
+    content: @Composable (Modifier) -> Unit,
+    @StringRes bottomText: Int,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -187,6 +189,18 @@ private fun AssetContainer(
             modifier = modifier
                 .padding(horizontal = dimensionResource(R.dimen.container_padding_horizontal), vertical = dimensionResource(R.dimen.container_padding_vertical))
         ) {
+            content(modifier)
+            DefaultContainerBottom(bottomText, modifier)
+        }
+    }
+}
+
+@Composable
+private fun AssetContainer(
+    modifier: Modifier = Modifier
+) {
+    DefaultContainerWithBottomText(
+        content = {
             for (asset in assets) {
                 AssetItem(
                     asset = asset,
@@ -194,39 +208,45 @@ private fun AssetContainer(
                 )
                 Spacer(modifier.height(dimensionResource(R.dimen.padding_medium)))
             }
-            Divider(
-                color = MaterialTheme.colorScheme.secondaryContainer,
-                thickness = dimensionResource(R.dimen.divider_width),
-                modifier = modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = dimensionResource(R.dimen.padding_small))
+        },
+        bottomText = R.string.assets_view_more,
+        modifier = modifier
+    )
+}
+
+@Composable
+private fun DefaultContainerBottom(@StringRes text: Int, modifier: Modifier = Modifier) {
+    Divider(
+        color = MaterialTheme.colorScheme.secondaryContainer,
+        thickness = dimensionResource(R.dimen.divider_width),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = dimensionResource(R.dimen.padding_small))
+    )
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(top = dimensionResource(R.dimen.padding_medium))
+        ) {
+            Text(
+                text = stringResource(text),
+                fontSize = 14.sp,
+                fontWeight = FontWeight.ExtraBold,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
-            Box(
+            Image(
+                painter = painterResource(R.drawable.ic_arrow_right),
+                contentDescription = null,
+                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),
                 modifier = modifier
-                    .fillMaxWidth()
-            ) {
-                Row(
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(top = dimensionResource(R.dimen.padding_medium))
-                ) {
-                    Text(
-                        text = stringResource(R.string.assets_view_more),
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.ExtraBold,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Image(
-                        painter = painterResource(R.drawable.ic_arrow_right),
-                        contentDescription = null,
-                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),
-                        modifier = modifier
-                            .size(18.dp)
-                    )
-                }
-            }
+                    .size(18.dp)
+            )
         }
     }
 }
