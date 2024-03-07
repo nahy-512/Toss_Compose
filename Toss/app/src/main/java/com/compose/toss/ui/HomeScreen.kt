@@ -20,6 +20,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -154,8 +155,7 @@ private fun TossBankContainer(
                 contentDescription = null,
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
                 modifier = modifier
-                    .height(16.dp)
-                    .width(16.dp)
+                    .size(dimensionResource(R.dimen.arrow_image_size))
             )
         }
     }
@@ -174,13 +174,46 @@ private fun AssetContainer(
     ) {
         Column(
             modifier = modifier
-                .padding(dimensionResource(R.dimen.padding_medium))
+                .padding(horizontal = dimensionResource(R.dimen.padding_medium), vertical = dimensionResource(R.dimen.padding_large))
         ) {
             for (asset in assets) {
                 AssetItem(
                     asset = asset,
-                    modifier = Modifier
+                    modifier = modifier
                 )
+            }
+            Divider(
+                color = MaterialTheme.colorScheme.secondaryContainer,
+                thickness = 1.dp,
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = dimensionResource(R.dimen.padding_small))
+            )
+            Box(
+                modifier = modifier
+                    .fillMaxWidth()
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(top = dimensionResource(R.dimen.padding_medium))
+                ) {
+                    Text(
+                        text = stringResource(R.string.assets_view_more),
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.ic_arrow_right),
+                        contentDescription = null,
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),
+                        modifier = modifier
+                            .size(18.dp)
+                    )
+                }
             }
         }
     }

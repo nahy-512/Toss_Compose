@@ -8,6 +8,7 @@
 
     <string name="remit">송금</string>
     <string name="wons">%s원</string>
+    <string name="assets_view_more">내 계좌 · 대출 · 증권 · 포인트 보기</string>
     <string name="assets_name_1">저축예금</string>
     <string name="assets_name_2">토스뱅크 통장</string>
     <string name="assets_name_3">키즈앤틴즈(Kids \u0026 Teens) 통장</string>
