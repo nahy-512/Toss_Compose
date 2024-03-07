@@ -1,7 +1,8 @@
 package com.compose.toss.ui
 
+import android.os.Build
 import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -38,7 +39,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.compose.toss.R
 import com.compose.toss.data.Assets
+import com.compose.toss.data.BankType
 import com.compose.toss.data.assets
+import java.time.LocalDate
 
 @Composable
 fun HomeScreen() {
@@ -54,10 +57,12 @@ fun HomeScreen() {
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
-            TossHomeTopBar(modifier = Modifier)
+            TossHomeTopBar(modifier = Modifier) // TODO: 탑바 상단 고정
             TossBankContainer(modifier = Modifier)
             Spacer(Modifier.height(dimensionResource(R.dimen.padding_default)))
             AssetContainer(modifier = Modifier)
+            Spacer(Modifier.height(dimensionResource(R.dimen.padding_default)))
+            CurrentMonthSpendContainer(modifier = Modifier)
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_bottom)))
         }
     }
@@ -223,6 +228,22 @@ private fun AssetContainer(
     }
 }
 
+
+@RequiresApi(Build.VERSION_CODES.O)
+@Composable
+private fun CurrentMonthSpendContainer(modifier: Modifier = Modifier) {
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer
+        ),
+        modifier = modifier
+    ) {
+        Box(modifier = modifier.padding(vertical = dimensionResource(R.dimen.container_padding_vertical), horizontal = dimensionResource(R.dimen.container_padding_horizontal))) {
+            AssetItem(asset = Assets(BankType.Card, stringResource(R.string.month_spend, LocalDate.now().monthValue), 246708, true)) // 현재 달
+        }
+    }
+}
+
 @Composable
 fun AssetItem(
     asset: Assets,
@@ -240,12 +261,20 @@ fun AssetItem(
                 .fillMaxWidth()
                 .padding(dimensionResource(R.dimen.padding_mini))
         ) {
-            AssetsBankIcon(asset.bankType.logo, Modifier)
+            if (asset.bankType == BankType.Card) {
+                CardIcon(asset.bankType.logo, Modifier)
+            } else {
+                AssetsBankIcon(asset.bankType.logo, Modifier)
+            }
             Spacer(modifier.width(dimensionResource(R.dimen.padding_medium)))
             AssetsInformation(asset.name, asset.sum)
             Spacer(modifier.weight(1f))
-            if (asset.canRemit) {
-                TextButton(stringResource(R.string.remit))
+            if (asset.bankType == BankType.Card) {
+                TextButton(stringResource(R.string.breakdown))
+            } else {
+                if (asset.showButton) {
+                    TextButton(stringResource(R.string.remit))
+                }
             }
         }
     }
@@ -267,8 +296,25 @@ fun AssetsBankIcon(
 }
 
 @Composable
+fun CardIcon(
+    @DrawableRes cardIcon: Int,
+    modifier: Modifier = Modifier
+) {
+    // TODO: 카드 이미지 추가
+    Image(
+        modifier = modifier
+            .width(24.dp)
+            .height(36.dp)
+            .size(50.dp),
+        contentScale = ContentScale.Crop, // 이미지를 도형에 맞게 자름
+        painter = painterResource(cardIcon),
+        contentDescription = null
+    )
+}
+
+@Composable
 fun AssetsInformation(
-    @StringRes assetsName: Int,
+    assetsName: String,
     sum: Int,
     modifier: Modifier = Modifier
 ) {
@@ -277,7 +323,7 @@ fun AssetsInformation(
         modifier = modifier
     ) {
         Text(
-            text = stringResource(assetsName),
+            text = assetsName,
             fontSize = 12.sp,
             fontWeight = FontWeight.Normal,
             color = MaterialTheme.colorScheme.onSurfaceVariant
