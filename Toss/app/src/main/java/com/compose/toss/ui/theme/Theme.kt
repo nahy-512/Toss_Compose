@@ -77,6 +77,7 @@ fun TossTheme(
 
     MaterialTheme(
         colorScheme = colors,
+        shapes = Shapes,
         content = content
     )
 }

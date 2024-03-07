@@ -12,6 +12,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -31,16 +34,14 @@ fun HomeScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White),
-        contentAlignment = Alignment.Center
+            .background(MaterialTheme.colorScheme.background)
     ) {
         LazyColumn(modifier = Modifier
             .fillMaxSize()
-            .background(color = MaterialTheme.colorScheme.inverseOnSurface)
             .padding(horizontal = 22.dp, vertical = 10.dp)) {
             item {
                 TossHomeTopBar(modifier = Modifier.fillMaxSize())
-                Text(text = "Home Screen", fontSize = 50.sp, fontWeight = FontWeight.Bold, color = Color.Black)
+                TossBankContainer(modifier = Modifier)
             }
         }
     }
@@ -56,12 +57,13 @@ private fun TossHomeTopBar(modifier: Modifier = Modifier) {
         TossLogo(
             modifier = Modifier
         )
-        Row {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
             Image(
                 painter = painterResource(R.drawable.ic_place),
                 contentDescription = "",
                 modifier = Modifier
-                    .background(MaterialTheme.colorScheme.inverseOnSurface)
                     .size(24.dp)
                     .offset(x = (-20).dp)
             )
@@ -69,7 +71,6 @@ private fun TossHomeTopBar(modifier: Modifier = Modifier) {
                 painter = painterResource(R.drawable.ic_alert),
                 contentDescription = "",
                 modifier = Modifier
-                    .background(MaterialTheme.colorScheme.inverseOnSurface)
                     .size(24.dp)
             )
         }
@@ -80,7 +81,11 @@ private fun TossHomeTopBar(modifier: Modifier = Modifier) {
 fun TossLogo(
     modifier: Modifier = Modifier,
 ) {
-    Row(modifier = modifier) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier
+            .height(50.dp)
+    ) {
         Image(
             painter = painterResource(R.drawable.logo_toss_symbol),
             contentDescription = stringResource(R.string.app_name),
@@ -91,10 +96,47 @@ fun TossLogo(
             painter = painterResource(R.drawable.logo_toss_text),
             contentDescription = stringResource(R.string.app_name),
             modifier = modifier
-                .background(MaterialTheme.colorScheme.inverseOnSurface)
                 .width(60.dp)
                 .height(30.dp)
                 .offset(4.dp)
         )
+    }
+}
+
+@Composable
+private fun TossBankContainer(
+    modifier: Modifier = Modifier
+) {
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+        ),
+        modifier = modifier
+            .fillMaxSize()
+            .offset(y = 16.dp)
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = modifier
+                .padding(horizontal = 22.dp, vertical = 20.dp)
+                .fillMaxSize()
+        ) {
+            Text(
+                text = "토스뱅크",
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = modifier
+            )
+            Image(
+                painter = painterResource(R.drawable.ic_arrow_right),
+                contentDescription = "토스뱅크",
+                modifier = modifier
+                    .height(16.dp)
+                    .width(16.dp)
+                    .background(Color.White)
+            )
+        }
     }
 }
