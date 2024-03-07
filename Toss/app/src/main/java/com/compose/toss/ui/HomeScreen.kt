@@ -26,7 +26,6 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -61,7 +60,7 @@ fun HomeScreen() {
             .padding(horizontal = dimensionResource(R.dimen.padding_medium))
     ) {
         Column(
-            verticalArrangement = Arrangement.Top,
+            verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_default)),
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
@@ -69,17 +68,12 @@ fun HomeScreen() {
         ) {
             TossHomeTopBar(modifier = Modifier) // TODO: 탑바 상단 고정
             TossBankContainer(modifier = Modifier)
-            Spacer(Modifier.height(dimensionResource(R.dimen.padding_default)))
             AssetContainer(modifier = Modifier)
-            Spacer(Modifier.height(dimensionResource(R.dimen.padding_default)))
             CurrentMonthSpendContainer(modifier = Modifier)
-            Spacer(Modifier.height(dimensionResource(R.dimen.padding_default)))
             SelectorContainer(modifier = Modifier)
-            Spacer(Modifier.height(dimensionResource(R.dimen.padding_default)))
             RecommendContainer(modifier = Modifier)
-            Spacer(Modifier.height(dimensionResource(R.dimen.padding_medium)))
+            Spacer(Modifier.height(dimensionResource(R.dimen.padding_mini)))
             ButtonLayer(modifier = Modifier)
-            Spacer(Modifier.height(dimensionResource(R.dimen.padding_medium)))
             PersonalInformationText(modifier = Modifier)
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_bottom)))
         }
