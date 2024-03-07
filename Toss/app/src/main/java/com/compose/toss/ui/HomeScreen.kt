@@ -81,13 +81,13 @@ fun HomeScreen() {
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
             ) {
-                TossBankContainer(modifier = Modifier)
-                AssetContainer(modifier = Modifier)
-                CurrentMonthSpendContainer(modifier = Modifier)
-                SelectorContainer(listOf(R.string.selector_home_account, R.string.selector_home_card, R.string.selector_home_loan),  modifier = Modifier)
+                TossBankContainer()
+                AssetContainer()
+                CurrentMonthSpendContainer()
+                SelectorContainer(listOf(R.string.selector_home_account, R.string.selector_home_card, R.string.selector_home_loan))
                 RecommendContainer(modifier = Modifier)
                 Spacer(Modifier.height(dimensionResource(R.dimen.padding_mini)))
-                ButtonLayer(modifier = Modifier)
+                ButtonLayer()
                 PersonalInformationText(modifier = Modifier)
                 Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_bottom)))
             }
@@ -108,9 +108,7 @@ private fun TossHomeTopBar(modifier: Modifier = Modifier) {
                 horizontal = dimensionResource(R.dimen.padding_medium)
             )
     ) {
-        TossLogo(
-            modifier = Modifier
-        )
+        TossLogo()
         Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -361,9 +359,9 @@ fun AssetItem(
                 .padding(dimensionResource(R.dimen.padding_mini))
         ) {
             if (asset.bankType == BankType.Card) {
-                CardIcon(asset.bankType.logo, Modifier)
+                CardIcon(asset.bankType.logo)
             } else {
-                AssetsBankIcon(asset.bankType.logo, Modifier)
+                AssetsBankIcon(asset.bankType.logo)
             }
             Spacer(modifier.width(dimensionResource(R.dimen.padding_medium)))
             AssetsInformation(asset.name, asset.sum)
@@ -445,7 +443,6 @@ fun RecommendItem(
         colors = CardDefaults.cardColors(
             containerColor = Color.Transparent
         ),
-        modifier = modifier
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
