@@ -50,6 +50,9 @@ import com.compose.toss.data.BankType
 import com.compose.toss.data.Recommend
 import com.compose.toss.data.assets
 import com.compose.toss.data.recommends
+import com.compose.toss.ui.common.ArrowButton
+import com.compose.toss.ui.common.IconAndTextButton
+import com.compose.toss.ui.common.TextButton
 import java.time.LocalDate
 
 @Composable
@@ -99,7 +102,10 @@ private fun TossHomeTopBar(modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.background) // TODO: 투명하다가 스크롤하면 흰색으로 변경시키기
-            .padding(vertical = dimensionResource(R.dimen.padding_default), horizontal = dimensionResource(R.dimen.padding_medium))
+            .padding(
+                vertical = dimensionResource(R.dimen.padding_default),
+                horizontal = dimensionResource(R.dimen.padding_medium)
+            )
     ) {
         TossLogo(
             modifier = Modifier
@@ -183,13 +189,7 @@ private fun TossBankContainer(
                 fontWeight = FontWeight.Bold,
                 modifier = modifier
             )
-            Image(
-                painter = painterResource(R.drawable.ic_arrow_right),
-                contentDescription = null,
-                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
-                modifier = modifier
-                    .size(dimensionResource(R.dimen.arrow_image_size))
-            )
+            ArrowButton()
         }
     }
 }
@@ -351,8 +351,8 @@ private fun ButtonLayer(modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxWidth()
     ) {
-        IconAndTextButton(Icons.Filled.Settings, R.string.screen_setting, Modifier.weight(0.5f)) //modifier.fillMaxWidth(0.5f)
-        IconAndTextButton(Icons.Filled.Add, R.string.add_asset, Modifier.weight(0.5f)) //modifier.fillMaxWidth().weight(1f)
+        IconAndTextButton(Icons.Filled.Settings, R.string.screen_setting, Modifier.weight(1f)) //modifier.fillMaxWidth(0.5f)
+        IconAndTextButton(Icons.Filled.Add, R.string.add_asset, Modifier.weight(1f)) //modifier.fillMaxWidth().weight(1f)
     }
 }
 
@@ -513,71 +513,8 @@ fun RecommendItem(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Spacer(modifier.weight(1f))
-            Image(
-                painter = painterResource(R.drawable.ic_arrow_right),
-                contentDescription = null,
-                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
-                modifier = modifier
-                    .size(dimensionResource(R.dimen.arrow_image_size))
-            )
+            ArrowButton()
         }
     }
 }
 
-@Composable
-private fun TextButton(
-    buttonText: String,
-    modifier: Modifier = Modifier
-) {
-    Card(
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.secondaryContainer,
-            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-        ),
-        modifier = modifier
-    ) {
-        Text(
-            text = buttonText,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Medium,
-            modifier = Modifier
-                .padding(vertical = dimensionResource(R.dimen.button_small_padding_vertical), horizontal = dimensionResource(R.dimen.button_small_padding_horizontal))
-        )
-    }
-}
-
-@Composable
-private fun IconAndTextButton(
-    icon: ImageVector,
-    @StringRes buttonText: Int,
-    modifier: Modifier = Modifier
-) {
-    Card(
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-            contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-        ),
-        modifier = modifier
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small)),
-            modifier = Modifier
-                .padding(vertical = dimensionResource(R.dimen.padding_medium), horizontal = dimensionResource(R.dimen.padding_large))
-        ) {
-            Image(
-                imageVector = icon,
-                contentDescription = null,
-                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onTertiaryContainer),
-                modifier = Modifier.size(24.dp)
-            )
-            Text(
-                text = stringResource(buttonText),
-                fontSize = 14.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier
-            )
-        }
-    }
-}
