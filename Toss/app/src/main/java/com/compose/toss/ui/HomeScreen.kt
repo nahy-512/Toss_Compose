@@ -41,6 +41,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.compose.toss.R
@@ -61,6 +62,7 @@ fun HomeScreen() {
     ) {
         Column(
             verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
@@ -77,6 +79,8 @@ fun HomeScreen() {
             RecommendContainer(modifier = Modifier)
             Spacer(Modifier.height(dimensionResource(R.dimen.padding_medium)))
             ButtonLayer(modifier = Modifier)
+            Spacer(Modifier.height(dimensionResource(R.dimen.padding_medium)))
+            PersonalInformationText(modifier = Modifier)
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_bottom)))
         }
     }
@@ -344,6 +348,19 @@ private fun ButtonLayer(modifier: Modifier = Modifier) {
         IconAndTextButton(Icons.Filled.Settings, R.string.screen_setting, Modifier.weight(0.5f)) //modifier.fillMaxWidth(0.5f)
         IconAndTextButton(Icons.Filled.Add, R.string.add_asset, Modifier.weight(0.5f)) //modifier.fillMaxWidth().weight(1f)
     }
+}
+
+@Composable
+private fun PersonalInformationText(modifier: Modifier) {
+    Text(
+        text = stringResource(R.string.personal_information),
+        textAlign = TextAlign.Center,
+        fontSize = 12.sp,
+        fontWeight = FontWeight.Medium,
+        color = MaterialTheme.colorScheme.onSurface,
+        modifier = modifier
+            .padding(dimensionResource(R.dimen.padding_medium))
+    )
 }
 
 @Composable
