@@ -23,6 +23,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,7 +42,9 @@ import androidx.compose.ui.unit.sp
 import com.compose.toss.R
 import com.compose.toss.data.Assets
 import com.compose.toss.data.BankType
+import com.compose.toss.data.Recommend
 import com.compose.toss.data.assets
+import com.compose.toss.data.recommends
 import java.time.LocalDate
 
 @Composable
@@ -66,6 +69,8 @@ fun HomeScreen() {
             CurrentMonthSpendContainer(modifier = Modifier)
             Spacer(Modifier.height(dimensionResource(R.dimen.padding_default)))
             SelectorContainer(modifier = Modifier)
+            Spacer(Modifier.height(dimensionResource(R.dimen.padding_default)))
+            RecommendContainer(modifier = Modifier)
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_bottom)))
         }
     }
@@ -174,7 +179,8 @@ private fun TossBankContainer(
 }
 
 @Composable
-private fun DefaultContainerWithBottomText(
+fun DefaultContainerWithBottomText(
+    title: String?,
     content: @Composable (Modifier) -> Unit,
     @StringRes bottomText: Int,
     modifier: Modifier = Modifier
@@ -189,6 +195,15 @@ private fun DefaultContainerWithBottomText(
             modifier = modifier
                 .padding(horizontal = dimensionResource(R.dimen.container_padding_horizontal), vertical = dimensionResource(R.dimen.container_padding_vertical))
         ) {
+            if (title != null) {
+                Text(
+                    title,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                )
+                Spacer(modifier.height(dimensionResource(R.dimen.padding_medium)))
+            }
             content(modifier)
             DefaultContainerBottom(bottomText, modifier)
         }
@@ -200,6 +215,7 @@ private fun AssetContainer(
     modifier: Modifier = Modifier
 ) {
     DefaultContainerWithBottomText(
+        title = null,
         content = {
             for (asset in assets) {
                 AssetItem(
@@ -215,7 +231,7 @@ private fun AssetContainer(
 }
 
 @Composable
-private fun DefaultContainerBottom(@StringRes text: Int, modifier: Modifier = Modifier) {
+fun DefaultContainerBottom(@StringRes text: Int, modifier: Modifier = Modifier) {
     Divider(
         color = MaterialTheme.colorScheme.secondaryContainer,
         thickness = dimensionResource(R.dimen.divider_width),
@@ -291,6 +307,24 @@ fun SelectorContainer(modifier: Modifier = Modifier) {
             SelectorText(R.string.selector_home_loan)
         }
     }
+}
+
+@Composable
+private fun RecommendContainer(modifier: Modifier) {
+    DefaultContainerWithBottomText(
+        title = stringResource(R.string.recommend_title, "김나현"),
+        content = {
+            for (recommend in recommends) {
+                RecommendItem(
+                    item = recommend,
+                    modifier = modifier
+                )
+                Spacer(modifier.height(dimensionResource(R.dimen.padding_medium)))
+            }
+        },
+        bottomText = R.string.recommend_view_more,
+        modifier = modifier
+    )
 }
 
 @Composable
@@ -404,6 +438,47 @@ fun AssetsInformation(
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold
         )
+    }
+}
+
+@Composable
+fun RecommendItem(
+    item: Recommend,
+    modifier: Modifier = Modifier
+) {
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = Color.Transparent
+        ),
+        modifier = modifier
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(dimensionResource(R.dimen.padding_mini))
+        ) {
+            Image(
+                imageVector = item.icon,
+                contentDescription = null,
+                colorFilter = ColorFilter.tint(item.iconColor),
+            )
+            Spacer(modifier.width(dimensionResource(R.dimen.padding_medium)))
+            Text(
+                text = item.content,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Spacer(modifier.weight(1f))
+            Image(
+                painter = painterResource(R.drawable.ic_arrow_right),
+                contentDescription = null,
+                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+                modifier = modifier
+                    .size(dimensionResource(R.dimen.arrow_image_size))
+            )
+        }
     }
 }
 
