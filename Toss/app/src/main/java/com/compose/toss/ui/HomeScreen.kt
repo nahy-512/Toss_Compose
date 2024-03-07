@@ -3,7 +3,6 @@ package com.compose.toss.ui
 import android.os.Build
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
-import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -35,7 +34,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -52,6 +50,7 @@ import com.compose.toss.data.assets
 import com.compose.toss.data.recommends
 import com.compose.toss.ui.common.ArrowButton
 import com.compose.toss.ui.common.DefaultCardBackground
+import com.compose.toss.ui.common.ContainerWithBottomText
 import com.compose.toss.ui.common.IconAndTextButton
 import com.compose.toss.ui.common.SelectorContainer
 import com.compose.toss.ui.common.TextButton
@@ -191,40 +190,10 @@ private fun TossBankContainer(
 }
 
 @Composable
-fun DefaultContainerWithBottomText(
-    title: String?,
-    content: @Composable (Modifier) -> Unit,
-    @StringRes bottomText: Int,
-    modifier: Modifier = Modifier
-) {
-    DefaultCardBackground(
-        content = {
-            Column(
-                modifier = modifier
-                    .padding(horizontal = dimensionResource(R.dimen.container_padding_horizontal), vertical = dimensionResource(R.dimen.container_padding_vertical))
-            ) {
-                if (title != null) {
-                    Text(
-                        title,
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
-                    Spacer(modifier.height(dimensionResource(R.dimen.padding_medium)))
-                }
-                content(modifier)
-                DefaultContainerBottom(bottomText, modifier)
-            }
-        },
-        modifier = modifier
-    )
-}
-
-@Composable
 private fun AssetContainer(
     modifier: Modifier = Modifier
 ) {
-    DefaultContainerWithBottomText(
+    ContainerWithBottomText(
         title = null,
         content = {
             for (asset in assets) {
@@ -238,43 +207,6 @@ private fun AssetContainer(
         bottomText = R.string.assets_view_more,
         modifier = modifier
     )
-}
-
-@Composable
-fun DefaultContainerBottom(@StringRes text: Int, modifier: Modifier = Modifier) {
-    Divider(
-        color = MaterialTheme.colorScheme.secondaryContainer,
-        thickness = dimensionResource(R.dimen.divider_width),
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = dimensionResource(R.dimen.padding_small))
-    )
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-    ) {
-        Row(
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(top = dimensionResource(R.dimen.padding_medium))
-        ) {
-            Text(
-                text = stringResource(text),
-                fontSize = 14.sp,
-                fontWeight = FontWeight.ExtraBold,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            Image(
-                painter = painterResource(R.drawable.ic_arrow_right),
-                contentDescription = null,
-                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),
-                modifier = modifier
-                    .size(18.dp)
-            )
-        }
-    }
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -294,7 +226,7 @@ private fun CurrentMonthSpendContainer(modifier: Modifier = Modifier) {
 
 @Composable
 private fun RecommendContainer(modifier: Modifier) {
-    DefaultContainerWithBottomText(
+    ContainerWithBottomText(
         title = stringResource(R.string.recommend_title, "김나현"),
         content = {
             for (recommend in recommends) {
