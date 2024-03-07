@@ -244,7 +244,9 @@ fun AssetItem(
             Spacer(modifier.width(dimensionResource(R.dimen.padding_medium)))
             AssetsInformation(asset.name, asset.sum)
             Spacer(modifier.weight(1f))
-            AssetsRemitButton(asset.canRemit)
+            if (asset.canRemit) {
+                TextButton(stringResource(R.string.remit))
+            }
         }
     }
 }
@@ -290,25 +292,23 @@ fun AssetsInformation(
 }
 
 @Composable
-private fun AssetsRemitButton(
-    canRemit: Boolean,
+private fun TextButton(
+    buttonText: String,
     modifier: Modifier = Modifier
 ) {
-    if (canRemit) {
-        Card(
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-            ),
-            modifier = modifier
-        ) {
-            Text(
-                text = stringResource(R.string.remit),
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier
-                    .padding(vertical = dimensionResource(R.dimen.button_small_padding_vertical), horizontal = dimensionResource(R.dimen.button_small_padding_horizontal))
-            )
-        }
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+        ),
+        modifier = modifier
+    ) {
+        Text(
+            text = buttonText,
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Medium,
+            modifier = Modifier
+                .padding(vertical = dimensionResource(R.dimen.button_small_padding_vertical), horizontal = dimensionResource(R.dimen.button_small_padding_horizontal))
+        )
     }
 }
