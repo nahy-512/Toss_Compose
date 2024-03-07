@@ -6,6 +6,7 @@
     <string name="tab_stock">주식</string>
     <string name="tab_whole">전체</string>
 
+    <string name="toss_bank">토스뱅크</string>
     <string name="remit">송금</string>
     <string name="wons">%s원</string>
     <string name="assets_view_more">내 계좌 · 대출 · 증권 · 포인트 보기</string>

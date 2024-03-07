@@ -46,17 +46,19 @@ fun HomeScreen() {
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
+            .padding(horizontal = dimensionResource(R.dimen.padding_medium))
     ) {
         Column(
             verticalArrangement = Arrangement.Top,
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 22.dp, vertical = 10.dp)
                 .verticalScroll(rememberScrollState())
         ) {
             TossHomeTopBar(modifier = Modifier)
             TossBankContainer(modifier = Modifier)
+            Spacer(Modifier.height(dimensionResource(R.dimen.padding_default)))
             AssetContainer(modifier = Modifier)
+            Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_bottom)))
         }
     }
 }
@@ -68,6 +70,7 @@ private fun TossHomeTopBar(modifier: Modifier = Modifier) {
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
+            .padding(vertical = dimensionResource(R.dimen.padding_default))
     ) {
         TossLogo(
             modifier = Modifier
@@ -82,8 +85,8 @@ private fun TossHomeTopBar(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .size(32.dp)
                     .padding(3.dp)
-                    .offset(x = (-20).dp)
             )
+            Spacer(modifier.width(20.dp))
             Image(
                 painter = painterResource(R.drawable.ic_alert),
                 contentDescription = null,
@@ -103,7 +106,6 @@ fun TossLogo(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
-            .height(50.dp)
     ) {
         Image(
             painter = painterResource(R.drawable.logo_toss_symbol),
@@ -135,17 +137,19 @@ private fun TossBankContainer(
         ),
         modifier = modifier
             .fillMaxWidth()
-            .offset(y = 16.dp)
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
             modifier = modifier
-                .padding(horizontal = 22.dp, vertical = 20.dp)
+                .padding(
+                    horizontal = dimensionResource(R.dimen.container_padding_horizontal),
+                    vertical = dimensionResource(R.dimen.container_padding_vertical)
+                )
                 .fillMaxWidth()
         ) {
             Text(
-                text = "토스뱅크",
+                text = stringResource(R.string.toss_bank),
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = modifier
@@ -170,17 +174,17 @@ private fun AssetContainer(
             containerColor = MaterialTheme.colorScheme.primaryContainer
         ),
         modifier = modifier
-            .offset(y = 32.dp)
     ) {
         Column(
             modifier = modifier
-                .padding(horizontal = dimensionResource(R.dimen.padding_medium), vertical = dimensionResource(R.dimen.padding_large))
+                .padding(horizontal = dimensionResource(R.dimen.container_padding_horizontal), vertical = dimensionResource(R.dimen.container_padding_vertical))
         ) {
             for (asset in assets) {
                 AssetItem(
                     asset = asset,
                     modifier = modifier
                 )
+                Spacer(modifier.height(dimensionResource(R.dimen.padding_medium)))
             }
             Divider(
                 color = MaterialTheme.colorScheme.secondaryContainer,
@@ -234,11 +238,12 @@ fun AssetItem(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(10.dp)
+                .padding(dimensionResource(R.dimen.padding_mini))
         ) {
             AssetsBankIcon(asset.bankType.logo, Modifier)
+            Spacer(modifier.width(dimensionResource(R.dimen.padding_medium)))
             AssetsInformation(asset.name, asset.sum)
-            Spacer(Modifier.weight(1f))
+            Spacer(modifier.weight(1f))
             AssetsRemitButton(asset.canRemit)
         }
     }
@@ -268,7 +273,6 @@ fun AssetsInformation(
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = modifier
-            .offset(x = dimensionResource(R.dimen.padding_medium))
     ) {
         Text(
             text = stringResource(assetsName),
@@ -303,7 +307,7 @@ private fun AssetsRemitButton(
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier
-                    .padding(vertical = 8.dp, horizontal = 14.dp)
+                    .padding(vertical = dimensionResource(R.dimen.button_small_padding_vertical), horizontal = dimensionResource(R.dimen.button_small_padding_horizontal))
             )
         }
     }
