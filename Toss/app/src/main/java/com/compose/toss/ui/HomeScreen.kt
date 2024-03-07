@@ -20,6 +20,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
@@ -32,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -71,6 +75,8 @@ fun HomeScreen() {
             SelectorContainer(modifier = Modifier)
             Spacer(Modifier.height(dimensionResource(R.dimen.padding_default)))
             RecommendContainer(modifier = Modifier)
+            Spacer(Modifier.height(dimensionResource(R.dimen.padding_medium)))
+            ButtonLayer(modifier = Modifier)
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_bottom)))
         }
     }
@@ -328,6 +334,19 @@ private fun RecommendContainer(modifier: Modifier) {
 }
 
 @Composable
+private fun ButtonLayer(modifier: Modifier = Modifier) {
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium)),
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier
+            .fillMaxWidth()
+    ) {
+        IconAndTextButton(Icons.Filled.Settings, R.string.screen_setting, Modifier.weight(0.5f)) //modifier.fillMaxWidth(0.5f)
+        IconAndTextButton(Icons.Filled.Add, R.string.add_asset, Modifier.weight(0.5f)) //modifier.fillMaxWidth().weight(1f)
+    }
+}
+
+@Composable
 fun SelectorText(@StringRes text: Int) {
     Text(
         text = stringResource(text),
@@ -501,5 +520,41 @@ private fun TextButton(
             modifier = Modifier
                 .padding(vertical = dimensionResource(R.dimen.button_small_padding_vertical), horizontal = dimensionResource(R.dimen.button_small_padding_horizontal))
         )
+    }
+}
+
+@Composable
+private fun IconAndTextButton(
+    icon: ImageVector,
+    @StringRes buttonText: Int,
+    modifier: Modifier = Modifier
+) {
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+            contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+        ),
+        modifier = modifier
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small)),
+            modifier = Modifier
+                .padding(vertical = dimensionResource(R.dimen.padding_medium), horizontal = dimensionResource(R.dimen.padding_large))
+        ) {
+            Image(
+                imageVector = icon,
+                contentDescription = null,
+                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onTertiaryContainer),
+                modifier = Modifier.size(24.dp)
+            )
+            Text(
+                text = stringResource(buttonText),
+                fontSize = 14.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier
+            )
+        }
     }
 }

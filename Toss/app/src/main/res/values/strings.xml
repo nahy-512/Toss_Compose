@@ -17,4 +17,6 @@
     <string name="selector_home_loan">대출받기</string>
     <string name="recommend_title">%s님을 위해 준비했어요</string>
     <string name="recommend_view_more">추천 서비스 더보기</string>
+    <string name="screen_setting">화면 설정</string>
+    <string name="add_asset">자산 추가</string>
 </resources>
