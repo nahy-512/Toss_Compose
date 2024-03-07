@@ -52,6 +52,7 @@ import com.compose.toss.data.assets
 import com.compose.toss.data.recommends
 import com.compose.toss.ui.common.ArrowButton
 import com.compose.toss.ui.common.IconAndTextButton
+import com.compose.toss.ui.common.SelectorContainer
 import com.compose.toss.ui.common.TextButton
 import java.time.LocalDate
 
@@ -83,7 +84,7 @@ fun HomeScreen() {
                 TossBankContainer(modifier = Modifier)
                 AssetContainer(modifier = Modifier)
                 CurrentMonthSpendContainer(modifier = Modifier)
-                SelectorContainer(modifier = Modifier)
+                SelectorContainer(listOf(R.string.selector_home_account, R.string.selector_home_card, R.string.selector_home_loan),  modifier = Modifier)
                 RecommendContainer(modifier = Modifier)
                 Spacer(Modifier.height(dimensionResource(R.dimen.padding_mini)))
                 ButtonLayer(modifier = Modifier)
@@ -299,33 +300,6 @@ private fun CurrentMonthSpendContainer(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun SelectorContainer(modifier: Modifier = Modifier) {
-    Card(
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer
-        ),
-        modifier = modifier
-            .fillMaxWidth()
-    ) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(
-                    vertical = dimensionResource(R.dimen.padding_medium),
-                )
-        ) {
-            SelectorText(R.string.selector_home_account)
-            SelectorSeparator(modifier)
-            SelectorText(R.string.selector_home_card)
-            SelectorSeparator(modifier)
-            SelectorText(R.string.selector_home_loan)
-        }
-    }
-}
-
-@Composable
 private fun RecommendContainer(modifier: Modifier) {
     DefaultContainerWithBottomText(
         title = stringResource(R.string.recommend_title, "김나현"),
@@ -366,27 +340,6 @@ private fun PersonalInformationText(modifier: Modifier) {
         color = MaterialTheme.colorScheme.onSurface,
         modifier = modifier
             .padding(dimensionResource(R.dimen.padding_medium))
-    )
-}
-
-@Composable
-fun SelectorText(@StringRes text: Int) {
-    Text(
-        text = stringResource(text),
-        fontSize = 15.sp,
-        fontWeight = FontWeight.ExtraBold,
-        color = MaterialTheme.colorScheme.onSurfaceVariant
-    )
-}
-
-@Composable
-fun SelectorSeparator(modifier: Modifier = Modifier) {
-    // 세로 방향의 구분선
-    Box(
-        modifier
-            .height(24.dp)
-            .width(dimensionResource(R.dimen.divider_width))
-            .background(color = MaterialTheme.colorScheme.secondaryContainer)
     )
 }
 
