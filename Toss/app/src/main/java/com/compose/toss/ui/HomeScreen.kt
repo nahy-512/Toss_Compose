@@ -51,6 +51,7 @@ import com.compose.toss.data.Recommend
 import com.compose.toss.data.assets
 import com.compose.toss.data.recommends
 import com.compose.toss.ui.common.ArrowButton
+import com.compose.toss.ui.common.DefaultCardBackground
 import com.compose.toss.ui.common.IconAndTextButton
 import com.compose.toss.ui.common.SelectorContainer
 import com.compose.toss.ui.common.TextButton
@@ -164,33 +165,29 @@ fun TossLogo(
 private fun TossBankContainer(
     modifier: Modifier = Modifier
 ) {
-    Card(
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-        ),
-        modifier = modifier
-            .fillMaxWidth()
-    ) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = modifier
-                .padding(
-                    horizontal = dimensionResource(R.dimen.container_padding_horizontal),
-                    vertical = dimensionResource(R.dimen.container_padding_vertical)
-                )
-                .fillMaxWidth()
-        ) {
-            Text(
-                text = stringResource(R.string.toss_bank),
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
+    DefaultCardBackground(
+        content = {
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
                 modifier = modifier
-            )
-            ArrowButton()
-        }
-    }
+                    .padding(
+                        horizontal = dimensionResource(R.dimen.container_padding_horizontal),
+                        vertical = dimensionResource(R.dimen.container_padding_vertical)
+                    )
+                    .fillMaxWidth()
+            ) {
+                Text(
+                    text = stringResource(R.string.toss_bank),
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = modifier
+                )
+                ArrowButton()
+            }
+        },
+        modifier = modifier
+    )
 }
 
 @Composable
@@ -200,29 +197,27 @@ fun DefaultContainerWithBottomText(
     @StringRes bottomText: Int,
     modifier: Modifier = Modifier
 ) {
-    Card(
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer
-        ),
-        modifier = modifier
-    ) {
-        Column(
-            modifier = modifier
-                .padding(horizontal = dimensionResource(R.dimen.container_padding_horizontal), vertical = dimensionResource(R.dimen.container_padding_vertical))
-        ) {
-            if (title != null) {
-                Text(
-                    title,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer
-                )
-                Spacer(modifier.height(dimensionResource(R.dimen.padding_medium)))
+    DefaultCardBackground(
+        content = {
+            Column(
+                modifier = modifier
+                    .padding(horizontal = dimensionResource(R.dimen.container_padding_horizontal), vertical = dimensionResource(R.dimen.container_padding_vertical))
+            ) {
+                if (title != null) {
+                    Text(
+                        title,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                    Spacer(modifier.height(dimensionResource(R.dimen.padding_medium)))
+                }
+                content(modifier)
+                DefaultContainerBottom(bottomText, modifier)
             }
-            content(modifier)
-            DefaultContainerBottom(bottomText, modifier)
-        }
-    }
+        },
+        modifier = modifier
+    )
 }
 
 @Composable

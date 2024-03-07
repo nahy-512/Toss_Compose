@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,30 +23,27 @@ import com.compose.toss.R
 
 @Composable
 fun SelectorContainer(titleList: List<Int>, modifier: Modifier = Modifier) {
-    Card(
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer
-        ),
-        modifier = modifier
-            .fillMaxWidth()
-    ) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(
-                    vertical = dimensionResource(R.dimen.padding_medium),
-                )
-        ) {
-            titleList.forEachIndexed { index, titleResId ->
-                SelectorText(titleResId)
-                if (index < titleList.size - 1) {
-                    SelectorSeparator(modifier)
+    DefaultCardBackground(
+        content = {
+            Row(
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(
+                        vertical = dimensionResource(R.dimen.padding_medium),
+                    )
+            ) {
+                titleList.forEachIndexed { index, titleResId ->
+                    SelectorText(titleResId)
+                    if (index < titleList.size - 1) {
+                        SelectorSeparator(modifier)
+                    }
                 }
             }
-        }
-    }
+        },
+        modifier = modifier
+    )
 }
 
 @Composable
