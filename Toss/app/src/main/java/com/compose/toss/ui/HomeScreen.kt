@@ -27,6 +27,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -53,29 +54,39 @@ import java.time.LocalDate
 
 @Composable
 fun HomeScreen() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .padding(horizontal = dimensionResource(R.dimen.padding_medium))
-    ) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_default)),
-            horizontalAlignment = Alignment.CenterHorizontally,
+    Scaffold(
+        topBar = {
+            TossHomeTopBar()
+        }
+    ) { contentPadding ->
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
+                .background(MaterialTheme.colorScheme.background)
+                .padding(
+                    start = dimensionResource(R.dimen.padding_medium),
+                    end = dimensionResource(R.dimen.padding_medium),
+                    top = contentPadding.calculateTopPadding()
+                )
         ) {
-            TossHomeTopBar(modifier = Modifier) // TODO: 탑바 상단 고정
-            TossBankContainer(modifier = Modifier)
-            AssetContainer(modifier = Modifier)
-            CurrentMonthSpendContainer(modifier = Modifier)
-            SelectorContainer(modifier = Modifier)
-            RecommendContainer(modifier = Modifier)
-            Spacer(Modifier.height(dimensionResource(R.dimen.padding_mini)))
-            ButtonLayer(modifier = Modifier)
-            PersonalInformationText(modifier = Modifier)
-            Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_bottom)))
+            Spacer(modifier = Modifier.height(contentPadding.calculateTopPadding())) // Spacer with topBar height
+            Column(
+                verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_default)),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+            ) {
+                TossBankContainer(modifier = Modifier)
+                AssetContainer(modifier = Modifier)
+                CurrentMonthSpendContainer(modifier = Modifier)
+                SelectorContainer(modifier = Modifier)
+                RecommendContainer(modifier = Modifier)
+                Spacer(Modifier.height(dimensionResource(R.dimen.padding_mini)))
+                ButtonLayer(modifier = Modifier)
+                PersonalInformationText(modifier = Modifier)
+                Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_bottom)))
+            }
         }
     }
 }
@@ -87,7 +98,8 @@ private fun TossHomeTopBar(modifier: Modifier = Modifier) {
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = dimensionResource(R.dimen.padding_default))
+            .background(MaterialTheme.colorScheme.background) // TODO: 투명하다가 스크롤하면 흰색으로 변경시키기
+            .padding(vertical = dimensionResource(R.dimen.padding_default), horizontal = dimensionResource(R.dimen.padding_medium))
     ) {
         TossLogo(
             modifier = Modifier
