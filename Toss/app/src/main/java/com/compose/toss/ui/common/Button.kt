@@ -4,6 +4,8 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
@@ -66,23 +68,24 @@ fun IconAndTextButton(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small)),
             modifier = Modifier
-                .padding(vertical = dimensionResource(R.dimen.padding_medium), horizontal = dimensionResource(
-                    R.dimen.padding_large)
-                )
+                .padding(vertical = dimensionResource(R.dimen.padding_medium))
+                .fillMaxWidth()
         ) {
+            Spacer(modifier = Modifier.weight(1f))
             Image(
                 imageVector = icon,
                 contentDescription = null,
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onTertiaryContainer),
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(24.dp).weight(1f)
             )
             Text(
                 text = stringResource(buttonText),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier
+                modifier = Modifier.weight(2f)
             )
+            Spacer(modifier = Modifier.weight(1f))
         }
     }
 }
