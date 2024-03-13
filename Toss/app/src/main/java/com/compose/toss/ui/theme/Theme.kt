@@ -15,6 +15,8 @@ private val LightColors = lightColorScheme(
     onSecondary = md_theme_light_onSecondary,
     secondaryContainer = md_theme_light_secondaryContainer,
     onSecondaryContainer = md_theme_light_onSecondaryContainer,
+    tertiaryContainer = md_theme_light_tertiaryContainer,
+    onTertiaryContainer = md_theme_light_onTertiaryContainer,
     error = md_theme_light_error,
     errorContainer = md_theme_light_errorContainer,
     onError = md_theme_light_onError,
@@ -44,6 +46,7 @@ private val DarkColors = darkColorScheme(
     onSecondary = md_theme_dark_onSecondary,
     secondaryContainer = md_theme_dark_secondaryContainer,
     onSecondaryContainer = md_theme_dark_onSecondaryContainer,
+    tertiaryContainer = md_theme_dark_tertiaryContainer,
     onTertiaryContainer = md_theme_dark_onTertiaryContainer,
     error = md_theme_dark_error,
     errorContainer = md_theme_dark_errorContainer,
@@ -77,6 +80,7 @@ fun TossTheme(
 
     MaterialTheme(
         colorScheme = colors,
+        shapes = Shapes,
         content = content
     )
 }

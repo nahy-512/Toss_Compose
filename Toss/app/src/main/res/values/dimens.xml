@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="container_padding_horizontal">18dp</dimen>
+    <dimen name="container_padding_vertical">20dp</dimen>
+
+    <dimen name="button_small_padding_horizontal">12dp</dimen>
+    <dimen name="button_small_padding_vertical">6dp</dimen>
+
+    <dimen name="padding_mini">4dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_default">12dp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
+    <dimen name="padding_large">24dp</dimen>
+    <dimen name="padding_bottom">150dp</dimen>
+
+    <dimen name="divider_width">1dp</dimen>
+    <dimen name="image_size">64dp</dimen>
+    <dimen name="arrow_image_size">16dp</dimen>
+    <dimen name="offset_card">2.5dp</dimen>
+</resources>
