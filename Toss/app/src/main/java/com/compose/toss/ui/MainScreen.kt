@@ -1,15 +1,22 @@
 package com.compose.toss.ui
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -44,11 +51,23 @@ fun BottomBar(navController: NavHostController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
-    BottomNavigation(
-        backgroundColor = MaterialTheme.colorScheme.primaryContainer
+    // 상단 모서리
+    Box(Modifier
+        .fillMaxWidth()
+        .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+        .background(Color.Transparent)
+        .border(
+            0.3.dp,
+            MaterialTheme.colorScheme.tertiaryContainer,
+            RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
+        )
     ) {
-        screens.forEach { screens ->
-            AddItem(item = screens, currentDestination = currentDestination, navController =navController )
+        BottomNavigation(
+            backgroundColor = MaterialTheme.colorScheme.primaryContainer
+        ) {
+            screens.forEach { screens ->
+                AddItem(item = screens, currentDestination = currentDestination, navController =navController )
+            }
         }
     }
 }
