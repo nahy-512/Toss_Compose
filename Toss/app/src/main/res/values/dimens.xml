@@ -3,7 +3,7 @@
     <dimen name="container_padding_horizontal">18dp</dimen>
     <dimen name="container_padding_vertical">20dp</dimen>
 
-    <dimen name="button_small_padding_horizontal">14dp</dimen>
+    <dimen name="button_small_padding_horizontal">12dp</dimen>
     <dimen name="button_small_padding_vertical">6dp</dimen>
 
     <dimen name="padding_mini">4dp</dimen>
@@ -16,4 +16,5 @@
     <dimen name="divider_width">1dp</dimen>
     <dimen name="image_size">64dp</dimen>
     <dimen name="arrow_image_size">16dp</dimen>
+    <dimen name="offset_card">2.5dp</dimen>
 </resources>

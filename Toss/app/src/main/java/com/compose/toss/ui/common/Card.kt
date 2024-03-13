@@ -1,5 +1,6 @@
 package com.compose.toss.ui.common
 
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
@@ -19,11 +21,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.compose.toss.R
@@ -112,4 +117,22 @@ fun ContainerBottomShowMore(@StringRes text: Int, modifier: Modifier = Modifier)
             )
         }
     }
+}
+
+@Composable
+fun CheckCardContainer(
+    @DrawableRes cardIcon: Int,
+    width: Double,
+    modifier: Modifier = Modifier
+) {
+    val height = width * 1.58 // 카드 비율
+    Image(
+        modifier = modifier
+            .width((width).dp)
+            .height((height).dp)
+            .clip(MaterialTheme.shapes.extraSmall),
+        contentScale = ContentScale.Crop,
+        painter = painterResource(cardIcon),
+        contentDescription = null
+    )
 }
