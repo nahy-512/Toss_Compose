@@ -14,21 +14,21 @@ import com.compose.toss.ui.WholeScreen
 fun BottomNavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = BottomBarScreen.Home.route
+        startDestination = BottomNavItem.Home.route
     ) {
-        composable(route = BottomBarScreen.Home.route){
+        composable(route = BottomNavItem.Home.route){
             HomeScreen()
         }
-        composable(route = BottomBarScreen.Benefit.route){
+        composable(route = BottomNavItem.Benefit.route){
             BenefitScreen()
         }
-        composable(route = BottomBarScreen.Pay.route){
+        composable(route = BottomNavItem.Pay.route){
             PayScreen()
         }
-        composable(route = BottomBarScreen.Stock.route){
+        composable(route = BottomNavItem.Stock.route){
             StockScreen()
         }
-        composable(route = BottomBarScreen.Whole.route){
+        composable(route = BottomNavItem.Whole.route){
             WholeScreen()
         }
     }
