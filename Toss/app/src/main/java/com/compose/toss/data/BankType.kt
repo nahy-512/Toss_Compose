@@ -10,5 +10,5 @@ enum class BankType(val bankName: String, @DrawableRes val logo: Int) {
     Naver("네이버페이", R.drawable.ic_bank_naver),
     Kakao("카카오뱅크", R.drawable.ic_bank_kakao),
     Woori("우리은행", R.drawable.ic_bank_woori),
-    Card("카드", R.drawable.ic_bank_shinhan);
+    Card("체크카드", R.drawable.img_card_2);
 }

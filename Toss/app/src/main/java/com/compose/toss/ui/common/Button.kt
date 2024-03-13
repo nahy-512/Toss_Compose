@@ -32,7 +32,7 @@ fun TextButton(
     modifier: Modifier = Modifier
 ) {
     Card(
-        shape = Shapes.extraSmall,
+        shape = Shapes.small,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.secondaryContainer,
             contentColor = MaterialTheme.colorScheme.onSecondaryContainer
@@ -58,6 +58,7 @@ fun IconAndTextButton(
     modifier: Modifier = Modifier
 ) {
     Card(
+        shape = Shapes.large,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.tertiaryContainer,
             contentColor = MaterialTheme.colorScheme.onTertiaryContainer

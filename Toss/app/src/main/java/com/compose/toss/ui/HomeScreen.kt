@@ -24,7 +24,6 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -49,6 +48,7 @@ import com.compose.toss.data.Recommend
 import com.compose.toss.data.assets
 import com.compose.toss.data.recommends
 import com.compose.toss.ui.common.ArrowButton
+import com.compose.toss.ui.common.CheckCardContainer
 import com.compose.toss.ui.common.DefaultCardBackground
 import com.compose.toss.ui.common.ContainerWithBottomText
 import com.compose.toss.ui.common.IconAndTextButton
@@ -212,16 +212,14 @@ private fun AssetContainer(
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun CurrentMonthSpendContainer(modifier: Modifier = Modifier) {
-    Card(
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer
-        ),
+    DefaultCardBackground(
+        content = {
+            Box(modifier = modifier.padding(vertical = dimensionResource(R.dimen.padding_medium), horizontal = dimensionResource(R.dimen.container_padding_horizontal))) {
+                AssetItem(asset = Assets(BankType.Card, stringResource(R.string.month_spend, LocalDate.now().monthValue), 246708, true)) // 현재 달
+            }
+        },
         modifier = modifier
-    ) {
-        Box(modifier = modifier.padding(vertical = dimensionResource(R.dimen.container_padding_vertical), horizontal = dimensionResource(R.dimen.container_padding_horizontal))) {
-            AssetItem(asset = Assets(BankType.Card, stringResource(R.string.month_spend, LocalDate.now().monthValue), 246708, true)) // 현재 달
-        }
-    }
+    )
 }
 
 @Composable
@@ -286,7 +284,10 @@ fun AssetItem(
                 .padding(dimensionResource(R.dimen.padding_mini))
         ) {
             if (asset.bankType == BankType.Card) {
-                CardIcon(asset.bankType.logo)
+                Box {
+                    CheckCardsBox(asset.bankType.logo)
+                }
+                Spacer(modifier.width(dimensionResource(R.dimen.offset_card)))
             } else {
                 AssetsBankIcon(asset.bankType.logo)
             }
@@ -312,7 +313,7 @@ fun AssetsBankIcon(
     Image(
         modifier = modifier
             .size(40.dp)
-            .clip(MaterialTheme.shapes.small),
+            .clip(MaterialTheme.shapes.medium),
         contentScale = ContentScale.Crop, // 이미지를 도형에 맞게 자름
         painter = painterResource(bankIcon),
         contentDescription = null
@@ -320,20 +321,17 @@ fun AssetsBankIcon(
 }
 
 @Composable
-fun CardIcon(
+fun CheckCardsBox(
     @DrawableRes cardIcon: Int,
     modifier: Modifier = Modifier
 ) {
-    // TODO: 카드 이미지 추가
-    Image(
+    Box(
         modifier = modifier
-            .width(24.dp)
-            .height(36.dp)
-            .size(50.dp),
-        contentScale = ContentScale.Crop, // 이미지를 도형에 맞게 자름
-        painter = painterResource(cardIcon),
-        contentDescription = null
-    )
+            .padding(dimensionResource(R.dimen.offset_card) * 3)
+    ) {
+        CheckCardContainer(cardIcon = cardIcon, width = 26.0, modifier.offset(x = dimensionResource(R.dimen.offset_card), y = dimensionResource(R.dimen.offset_card)))
+        CheckCardContainer(cardIcon = R.drawable.img_card_1, width = 26.0, modifier.offset(x = dimensionResource(R.dimen.offset_card) * -1, y = dimensionResource(R.dimen.offset_card) * -1))
+    }
 }
 
 @Composable
