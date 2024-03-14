@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -63,7 +65,7 @@ fun BottomBar(navController: NavHostController) {
         )
     ) {
         BottomNavigation(
-            backgroundColor = MaterialTheme.colorScheme.primaryContainer
+            backgroundColor = MaterialTheme.colorScheme.primaryContainer,
         ) {
             screens.forEach { screens ->
                 AddItem(item = screens, currentDestination = currentDestination, navController =navController )
@@ -85,6 +87,8 @@ fun RowScope.AddItem(
             Icon(
                 painter = painterResource(item.icon),
                 contentDescription = item.route,
+                modifier = Modifier
+                    .size(20.dp)
             )
         },
         selected = currentDestination?.hierarchy?.any {
@@ -97,6 +101,12 @@ fun RowScope.AddItem(
                 popUpTo(navController.graph.findStartDestination().id)
                 launchSingleTop =true
             }
-        }
+        },
+        // 아이템 클릭 효과
+        modifier = Modifier
+            .width(24.dp)
+            .padding(4.dp)
+            .background(Color.Transparent, RoundedCornerShape(16.dp))
+            .clip(RoundedCornerShape(16.dp))
     )
 }
